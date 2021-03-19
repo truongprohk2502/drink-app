@@ -1,0 +1,259 @@
+extend layout.pug
+
+mixin title(name)
+    .title-container
+        .title= name
+        img(src="./../assets/images/title-dark.png" alt="")
+
+mixin buttonText(name)
+    .buttonText= name
+
+mixin addChampagne(champagne)
+    img(src=`./../assets/products/${champagne.img}` alt="champagne")
+    .name= champagne.name
+    .price 
+        span.originPrice
+            span= champagne.originPrice
+            sup đ
+        span &nbsp;&nbsp;
+        span.salePrice
+            span= champagne.salePrice
+            sup đ
+    +buttonText("ADD TO CART")
+
+mixin productSlider(products)
+    .product-slider.container-fluid
+        .product-bound.row
+            .prevBtn
+                i.fa.fa-arrow-left
+            .nextBtn.disabled
+                i.fa.fa-arrow-right
+            for product in products 
+                .item.col-6.col-sm-3
+                    +addChampagne(product)
+
+mixin slider(items)
+    #carouselExampleControls.carousel.slide(data-ride='carousel')
+    #newsProductCarousel.carousel.slide(data-ride="carousel")
+        .carousel-inner.container-fluid
+            for el, ind in Array(items.length/4)
+                .carousel-item(class={active : ind === 0})
+                    .container-fluid
+                        .row 
+                            for el2, ind2 in Array(4)
+                                .item.col-6.col-sm-3
+                                    +addChampagne(items[ind * 4 + ind2])
+        
+mixin addNews(news)
+    .img
+        img(src=`./../assets/images/${news.img}` alt="")
+    .title= news.title 
+    .description= "Đăng bởi " + news.postedBy + " | " + news.postedDate + " | " + news.commentQty + " bình luận"
+    p.content= news.content
+    .more Read more
+
+mixin dotPagi(totalPage, currentPage)
+    - let i = 0
+    .pagi 
+        while i < totalPage
+            i.fa.fa-circle(class={active : i === currentPage - 1})
+            - i++
+
+block title
+    title Trang chủ
+
+block content 
+    -
+        const menues = [
+            { name: "Tài khoản của tôi", link: "/my-account" },
+            { name: "Trạng thái đơn hàng", link: "/order-status" },
+            { name: "Danh sách ưa thích ", link: "/favorite-list" },
+            { name: "Giỏ hàng", link: "/cart" },
+            { name: "Đăng nhập", link: "/login" },
+            { name: "Đăng ký", link: "/register" }
+        ]
+        const bottomMenues = [
+            { name: "TRANG CHỦ", link: "/", active: false },
+            { name: "RƯỢU VANG ĐỎ", link: "/red-wine", active: true },
+            { name: "RƯỢU TRẮNG", link: "/white-wine", active: false },
+            { name: "CHAMPAGNE", link: "/champagne", active: false },
+            { name: "THÔNG TIN", link: "/information", active: false },
+            { name: "BLOG", link: "/blog", active: false },
+            { name: "LIÊN HỆ", link: "/contact", active: false }
+        ]
+        const champagnes = [
+            { name: "RƯỢU VANG HUẾ", img: "1.jpg", originPrice: "400.000", salePrice: "350.000" },
+            { name: "RƯỢU VANG ĐÀ LẠT", img: "2.jpg", originPrice: "450.000", salePrice: "300.000" },
+            { name: "RƯỢU VANG HẢI PHÒNG", img: "3.jpg", originPrice: "300.000", salePrice: "250.000" },
+            { name: "RƯỢU VANG HÀ TĨNH", img: "4.jpg", originPrice: "200.000", salePrice: "150.000" },
+            { name: "RƯỢU VANG HUẾ", img: "5.jpg", originPrice: "400.000", salePrice: "350.000" },
+            { name: "RƯỢU VANG ĐÀ LẠT", img: "6.jpg", originPrice: "450.000", salePrice: "300.000" },
+            { name: "RƯỢU VANG HẢI PHÒNG", img: "7.jpg", originPrice: "300.000", salePrice: "250.000" },
+            { name: "RƯỢU VANG HÀ TĨNH", img: "8.jpg", originPrice: "200.000", salePrice: "150.000" },
+            { name: "RƯỢU VANG HUẾ", img: "9.jpg", originPrice: "400.000", salePrice: "350.000" },
+            { name: "RƯỢU VANG ĐÀ LẠT", img: "10.jpg", originPrice: "450.000", salePrice: "300.000" },
+            { name: "RƯỢU VANG HẢI PHÒNG", img: "11.jpg", originPrice: "300.000", salePrice: "250.000" },
+            { name: "RƯỢU VANG HÀ TĨNH", img: "12.jpg", originPrice: "200.000", salePrice: "150.000" }
+        ]
+        const images = [
+            { name: "47bb1d096966d29c98926a156318c767.jpg", alt: "champagne wine" },
+            { name: "Depositphotos_3010981_original1.jpg", alt: "champagne wine" },
+            { name: "Depositphotos_6971969_original-1240x698.jpg", alt: "champagne wine" },
+            { name: "8bd367294fd54ff78565e6a73329e848.jpg", alt: "champagne wine" },
+            { name: "Depositphotos_3010981_original1.jpg", alt: "champagne wine" },
+            { name: "47bb1d096966d29c98926a156318c767.jpg", alt: "champagne wine" },
+            { name: "8bd367294fd54ff78565e6a73329e848.jpg", alt: "champagne wine" },
+            { name: "Depositphotos_6971969_original-1240x698.jpg", alt: "champagne wine" }
+        ]
+        const newses = [
+            { 
+                title: "VÀNG THĂNG LONG CLASSIC",
+                postedBy: "Google",
+                postedDate: "30/6/2015",
+                commentQty: 60,
+                img: "Depositphotos_3010981_original1.jpg",
+                content: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been ..."
+            },
+            { 
+                title: "VÀNG THĂNG LONG CLASSIC",
+                postedBy: "Google",
+                postedDate: "30/6/2015",
+                commentQty: 60,
+                img: "Depositphotos_6971969_original-1240x698.jpg",
+                content: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's ..."
+            }
+        ]
+        const labels = [
+            { name: "fello", img: "partner13.png" },
+            { name: "cole", img: "partner14.png" },
+            { name: "temona", img: "partner17.png" }
+        ]
+        const footerList = [
+            { name: "THÔNG TIN", list: ["VỀ CHÚNG TÔI", "GIAO HÀNG", "CẢM NGHĨ", "LƯU TRỮ", "CHÍNH SÁCH RIÊNG TƯ"] },
+            { name: "MUA HÀNG", list: ["VẬN CHUYỂN VÀ TRẢ HÀNG", "MUA HÀNG AN TOÀN", "VẬN QUỐC TẾ", "LIÊN KẾT", "DỊCH VỤ GIẢM GIÁ"] }
+        ]
+        const footerIcons = [
+            { name: "Twitter", icon: "twitter" },
+            { name: "Google++", icon: "google-plus" },
+            { name: "LinkedIn", icon: "linkedin" },
+            { name: "Facebook", icon: "facebook" }
+        ]
+    header 
+        section.top-header.py-2
+            .menu.px-0.px-md-5
+                .d-none.d-md-flex
+                    for menu, index in menues 
+                        a(href=menu.link)= menu.name
+                        if index !== menues.length - 1
+                            div.mx-2 -
+                .d-block.d-md-none 
+                    i.fa.fa-bars.mx-3
+            .search-bar.px-0.px-md-5
+                input(type="text" placeholder="Tìm kiếm ở đây ...")
+                i.fa.fa-search
+        section.title 
+        section.bottom-header 
+            .container 
+                .row 
+                    .col-2 
+                    .menu.col-10.d-none.d-md-flex
+                        for menu in bottomMenues
+                            a(href=menu.link, class={active : menu.active})= menu.name
+                    .d-block.d-md-none 
+                        i.fa.fa-bars
+    main 
+        .introduction
+            .content
+                +title("GIỚI THIỆU")
+                p Vestibulum orci dui, condimentum et sapien ut, lobortis ullamcorper turpis. In vitae sapien vel lectus tincidunt gravida. Aenean scelerisque est ac lorem auctor, non bibendum orci commodo. Nam a iaculis orci, eu pellentesque neque. Phasellus dui sapien, feugiat dictum nulla nec, iaculis fringilla est. Proin feugiat, erat at rutrum pretium, nunc nibh hendrerit risus, in mollis nisi ante non erat. Nam gravida nisl et lacus aliquet, sit amet suscipit erat auctor. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Ut vehicula laoreet feugiat. Ut ut sollicitudin quam, sed lacinia urna. Nullam scelerisque et erat eget condimentum.
+                +buttonText("XEM THÊM")
+        .bg-grapes
+            img(src="./../assets/images/grapes.jpg" alt="green grapes")
+        .main-product.container-fluid 
+            .row
+                .col-12.col-sm-6.img
+                    img(src="./../assets/images/df3218bb45274009c6c3d5de8a6b98bf.jpg" alt="alpatago champagne")
+                .col-12.col-sm-6.detail 
+                    .title RƯỢU NHO NĂM 1987
+                    img(src="./../assets/images/titleleft-dark.png" alt="")
+                    .price 
+                        span 330.000
+                        sup đ
+                    +buttonText("ADD TO CART")
+                    p.description Một hợp chất có trong rượu vang được gọi là Resveratro còn có khả năng ngăn chặn mật độ ôxy hóa cùa protein béo.
+                    .data
+                        div 334<br>ngày
+                        div 26<br>giờ
+                        div 60<br>phút
+                        div 15<br>giây
+        +title("SẢN PHẨM MỚI")
+        +slider(champagnes)
+        .images.container-fluid
+            .row 
+                for img in images
+                    .img.col-6.col-md-3.p-0
+                        img(src=`./../assets/images/${img.name}` alt=img.alt)
+        +title("SẢN PHẨM BÁN CHẠY")
+        +slider(champagnes)
+        .bottom-content.container-fluid 
+            .row 
+                .col-12.col-md-8
+                    +title("TIN TỨC & BLOG")
+                    .row
+                        for news in newses 
+                            .news.col-12.col-sm-6
+                                +addNews(news)
+                .customer.col-12.col-md-4
+                    +title("KHÁCH HÀNG")
+                    .icon
+                        i.fa.fa-quote-right
+                    .text Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s ...
+                    .readmore Read more 
+                    .thumb-img 
+                        img(src="./../assets/images/timthumb2.jpg" alt="")
+                    .name GIANG LT
+                    .job Graphic design 
+                    +dotPagi(3, 1)
+            .label.row.my-3
+                for label in labels 
+                    .item.col-12.col-sm-4
+                        img(src=`./../assets/images/${label.img}` alt=label.name)
+    footer 
+        .container-fluid 
+            .row 
+                .col-12.col-md-5
+                    .row 
+                        for list in footerList 
+                            .col-6
+                                .title= list.name
+                                for item in list.list
+                                    .item= item
+                .col-12.col-md-7
+                    .row 
+                        .send-email.col-12.col-lg-6
+                            .title GỬI EMAIL
+                            .description Gửi email cho chúng tôi để được hỗ trợ
+                            .input
+                                input(type="text" placeholder="Enter your email")
+                                .button GỬI
+                            .icons 
+                                for icon in footerIcons 
+                                    i.fa(class=`fa-${icon.icon}`)
+                        .col-12.col-lg-6
+                            .title LIÊN HỆ
+                            .contact-item
+                                i.fa.fa-map-marker
+                                span Tầng 4, Tòa nhà Hà Nội Group, số 442 Đội Cấn, P.Cổng Vị, Q.Ba Đình, Hà Nội
+                            .contact-item 
+                                i.fa.fa-phone 
+                                span (04) 66776677
+                            .contact-item 
+                                i.fa.fa-envelope 
+                                span support@bizweb.com
+            .copyright.row
+                .col-12.col-md-6.p-0
+                    i.fa.fa-copyright
+                    span &nbsp;Copyright 2008-2015 DKT Technology JSC
+                .banking.col-12.col-md-6.p-0
+                    i.fa.fa-cc-visa
+                    i.fa.fa-cc-paypal
